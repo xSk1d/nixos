@@ -85,6 +85,7 @@
   # Install programs.
   programs.firefox.enable = true;
   programs.steam.enable = true;
+  programs.hyprland.enable = true;
   
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
@@ -95,6 +96,7 @@
    discord
    wget
    git
+   hyprland
   ];
 
   # List services that you want to enable:

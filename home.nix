@@ -14,6 +14,8 @@
     home-manager
   ];
   programs.fish.enable = true;
+  programs.kitty.enable = true;
+  wayland.windowManager.hyprland.enable = true; 
 
   programs.ssh = {
   enable = true;
