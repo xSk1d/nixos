@@ -2,7 +2,7 @@
 
 { config, pkgs, ... }:
 
-{
+{   
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
@@ -77,6 +77,10 @@
     packages = with pkgs; [
     ];
   };
+ 
+  # Passwordless Sudo
+  security.sudo.enable = true;
+  security.sudo.wheelNeedsPassword = false;
 
   # Install programs.
   programs.firefox.enable = true;
@@ -84,7 +88,9 @@
   
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
-
+  home-manager.useGlobalPkgs = true;
+  home-manager.useUserPackages = true;
+  
   environment.systemPackages = with pkgs; [
    discord
    wget

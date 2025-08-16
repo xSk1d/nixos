@@ -8,6 +8,8 @@
 
   # tiny proof it's working
   home.packages = with pkgs; [ 
+    vscode
+    nixd
     neovim
     home-manager
   ];
