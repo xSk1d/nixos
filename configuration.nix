@@ -15,6 +15,10 @@
 
   # Use latest kernel.
   boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot.kernelParams = [
+    "nvidia_drm.modeset=1"
+  ];
+
 
   networking.hostName = "nixos"; # Define your hostname.
  
@@ -67,21 +71,19 @@
   services.xserver.videoDrivers = [ "nvidia" ];
   hardware.nvidia = {
     modesetting.enable = true;
-    powerManagement.enable = true;
-    powerManagement.finegrained = false;
-    open = false;                      # proprietary driver is safer here
+    powerManagement.enable = false; # Can cause issues with Wayland
+    open = false; # Use proprietary driver
     nvidiaSettings = true;
-    package = config.boot.kernelPackages.nvidiaPackages.latest;
   };
 
   # Env vars NVIDIA compositors need
   environment.sessionVariables = {
-    WLR_NO_HARDWARE_CURSORS = "1";
-    WLR_RENDERER = "vulkan";
     GBM_BACKEND = "nvidia-drm";
+  __GLX_VENDOR_LIBRARY_NAME = "nvidia";
+    WLR_NO_HARDWARE_CURSORS = "1";
     LIBVA_DRIVER_NAME = "nvidia";
-    GLX_VENDOR_LIBRARY_NAME = "nvidia";
-    NIXOS_OZONE_WL = "1";
+  __GL_GSYNC_ALLOWED = "0";
+  __GL_VRR_ALLOWED = "0";
   };
 
 
@@ -115,8 +117,8 @@
   # Install programs.
   programs.firefox.enable = true;
   programs.steam.enable = true;
-  programs.hyprland.enable = true;
-  
+  programs.hyprland.enable =true;
+
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
   home-manager.useGlobalPkgs = true;
@@ -127,6 +129,7 @@
    wget
    git
    hyprland
+   nixfmt-rfc-style
   ];
 
   # List services that you want to enable:
